@@ -1,5 +1,21 @@
-fn median(a: Vec<f32>) -> Option<f32> {
-    todo!();
+fn median(mut a: Vec<f32>) -> Option<f32> {
+    if a.is_empty() {
+        return None;
+    }
+
+    a.sort_by(|x, y| x.partial_cmp(y).unwrap());
+
+    let list_len = a.len();
+    let middle = list_len/2;
+
+    let med = if list_len % 2 == 0 {
+        //even
+        (a[middle -1] + a[middle])/2.0
+    } else {
+        a[middle]
+    };
+
+    Some(med)
 }
 
 fn main() {
