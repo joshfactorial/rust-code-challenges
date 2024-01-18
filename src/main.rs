@@ -1,16 +1,33 @@
-fn unique(a: Vec<i32>) -> Vec<i32> {
-    todo!();
-}
+// fn unique(mut a: Vec<i32>) -> Vec<i32> {
+//     a.sort();
+//     a.dedup();
+//     a
+// }
 
 // advanced 1: use generic types
-// fn unique(a: Vec<T>) -> Vec<T> {
-//     todo!();
+// fn unique<T: Ord>(mut a: Vec<T>) -> Vec<T> {
+//     a.sort();
+//     a.dedup();
+//     a
 // }
 
 // advanced 2: keep items in order
-// fn unique(a: Iterable<T>) -> Vec<T> {
-//     todo!();
-// }
+fn unique<T: Ord + Copy>(a: Vec<T>) -> Vec<T> {
+    if a.is_empty() {
+        return a;
+    }
+
+    let mut c = vec![a[0]];
+    for i in 1..a.len() {
+        if c.iter().any(|&j| j == a[i]) {
+            continue
+        } else {
+            c.push(a[i])
+        }
+    }
+
+    c
+}
 
 // advanced 3: use iterators
 // fn unique(a: Iterable<T>) -> Vec<T> {
@@ -26,7 +43,7 @@ fn main() {
 
 #[test]
 fn empty_list() {
-    let input = vec![];
+    let input: Vec<i64> = vec![];
     let expected_output = vec![];
     let actual_output = unique(input);
     assert_eq!(actual_output, expected_output);
@@ -34,8 +51,8 @@ fn empty_list() {
 
 #[test]
 fn sorted_list() {
-    let input = vec![1, 4, 5];
-    let expected_output = vec![1, 4, 5];
+    let input: Vec<i32> = vec![1, 4, 5];
+    let expected_output: Vec<i32> = vec![1, 4, 5];
     let actual_output = unique(input);
     assert_eq!(actual_output, expected_output);
 }
@@ -43,7 +60,7 @@ fn sorted_list() {
 #[test]
 fn unsorted_list() {
     let input = vec![1, 5, 2];
-    let expected_output = vec![1, 2, 5];
+    let expected_output = vec![1, 5, 2];
     let actual_output = unique(input);
     assert_eq!(actual_output, expected_output);
 }
@@ -52,7 +69,7 @@ fn unsorted_list() {
 #[test]
 fn unsorted_list_with_duplicates() {
     let input = vec![1, 5, 2, 2, 1];
-    let expected_output = vec![1, 2, 5];
+    let expected_output = vec![1, 5, 2];
     let actual_output = unique(input);
     assert_eq!(actual_output, expected_output);
 }
