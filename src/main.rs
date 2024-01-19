@@ -1,5 +1,15 @@
 fn sum_with_missing(numbers: Vec<Option<i32>>) -> i32 {
-    todo!();
+    let mut running_total: i32 = 0;
+    for number in numbers {
+        // running_total += match number {
+        //     Some(x) => x,
+        //     _ => 0,
+        // }
+        if let Some(number) = number {
+            running_total += number;
+        };
+    }
+    running_total
 }
 
 fn main() {
