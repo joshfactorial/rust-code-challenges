@@ -223,7 +223,8 @@ fn large_graph() {
     let edge_list = vec!((1,2,1), (1,3,2), (2,1,1), (2,4,5), (3,1,2), (3,4,2), (4,2,5), (4,3,2));
     let g = Graph::from_edge_list(&edge_list);
 
-    let path = shortest_path(&g, 1, 4);
-    assert!(path.is_some());
-    assert_eq!(path.unwrap().1, 4);
+    let (path, cost) = shortest_path(&g, 1, 4).unwrap();
+    println!("1->4, {:?} {}", path, cost);
+    assert!(!path.is_empty());
+    assert_eq!(cost, 4);
 }
